@@ -1,4 +1,5 @@
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+// in production the API is served from the same address as the website; in development it runs on port 5000
+export const API_URL = import.meta.env.VITE_API_URL ?? (import.meta.env.DEV ? 'http://localhost:5000' : '');
 
 // absolute URL for an uploaded file such as /uploads/123.png
 export const assetUrl = (path) => (path ? (path.startsWith('http') ? path : `${API_URL}${path}`) : '');

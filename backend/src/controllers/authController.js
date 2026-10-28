@@ -51,7 +51,7 @@ exports.forgotPassword = async (req, res) => {
       resetTokenHash: sha256(token),
       resetTokenExpires: new Date(Date.now() + 30 * 60 * 1000),
     });
-    const link = `${process.env.ADMIN_URL || 'http://localhost:5174'}/reset-password?token=${token}`;
+    const link = `${process.env.ADMIN_URL || 'http://localhost:5173/admin'}/reset-password?token=${token}`;
     await sendMail({
       to: admin.email,
       subject: 'Reset your admin password',

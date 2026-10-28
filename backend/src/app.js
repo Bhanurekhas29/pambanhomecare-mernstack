@@ -1,5 +1,6 @@
 require('dotenv').config();
 require('express-async-errors');
+const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const cors = require('cors');
@@ -21,6 +22,18 @@ app.get('/uploads/:filename', async (req, res) => {
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 app.use('/api', require('./routes/public'));
 app.use('/api/admin', require('./routes/admin'));
+
+// the built website (frontend/dist): the website at "/" and the admin at "/admin" are one app, so every page falls back to index.html
+const dist = path.join(__dirname, '..', '..', 'frontend', 'dist');
+if (fs.existsSync(dist)) {
+  app.use(express.static(dist, { index: false, maxAge: '1y', setHeaders: (res, file) => file.endsWith('.html') && res.set('Cache-Control', 'no-cache') }));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) return next();
+    if (req.path.startsWith('/assets/')) return res.status(404).end();
+    res.set('Cache-Control', 'no-cache');
+    res.sendFile(path.join(dist, 'index.html'));
+  });
+}
 
 app.use((err, req, res, next) => {
   console.error(err);

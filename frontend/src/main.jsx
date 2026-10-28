@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
-import './styles/variables.css';
-import './styles/global.css';
-import './styles/motion.css';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+// The website and the admin (/admin) are two apps in one build. Only the one being visited is
+// downloaded, so their styles never mix.
+const isAdmin = window.location.pathname === '/admin' || window.location.pathname.startsWith('/admin/');
+const entry = isAdmin ? import('./admin/AdminEntry.jsx') : import('./SiteEntry.jsx');
+
+entry.then(({ default: Root }) => {
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+      <Root />
+    </React.StrictMode>
+  );
+});

@@ -26,7 +26,7 @@ function RequireAuth({ children }) {
   return getToken() ? children : <Navigate to="/login" replace />;
 }
 
-export default function App() {
+export default function AdminApp() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
