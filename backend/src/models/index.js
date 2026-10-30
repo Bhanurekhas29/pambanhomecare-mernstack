@@ -69,6 +69,7 @@ const PhysiotherapySection = sequelize.define('PhysiotherapySection', {
   eyebrow: DataTypes.STRING(100),
   heading: DataTypes.TEXT,
   highlightText: { type: DataTypes.STRING(150), field: 'highlight_text' }, // part of the heading shown in pink
+  description: DataTypes.TEXT, // short intro under the heading
   bannerTitle: { type: DataTypes.STRING(200), field: 'banner_title' },
   bannerText: { type: DataTypes.TEXT, field: 'banner_text' },
   bannerButtonLabel: { type: DataTypes.STRING(80), field: 'banner_button_label' },
@@ -79,6 +80,7 @@ const PhysiotherapySection = sequelize.define('PhysiotherapySection', {
 
 const PhysiotherapyTreatment = sequelize.define('PhysiotherapyTreatment', {
   title: { type: DataTypes.STRING(150), allowNull: false },
+  description: DataTypes.TEXT,
   icon: DataTypes.STRING(100),
   imageUrl: { type: DataTypes.STRING, field: 'image_url' },
   sortOrder: { type: DataTypes.INTEGER, defaultValue: 0, field: 'sort_order' },
@@ -122,6 +124,14 @@ const HowItWorksSection = sequelize.define('HowItWorksSection', {
   description: DataTypes.TEXT,
   items: DataTypes.JSON, // steps: [{ icon, title, text }], numbered by position
 }, { tableName: 'how_it_works_sections' });
+
+const FaqSection = sequelize.define('FaqSection', {
+  isVisible: { type: DataTypes.BOOLEAN, defaultValue: true, field: 'is_visible' },
+  eyebrow: DataTypes.STRING(100),
+  heading: DataTypes.TEXT,
+  description: DataTypes.TEXT, // short text beside the questions
+  items: DataTypes.JSON, // [{ question, answer }]
+}, { tableName: 'faq_sections' });
 
 const GoogleSection = sequelize.define('GoogleSection', {
   isVisible: { type: DataTypes.BOOLEAN, defaultValue: true, field: 'is_visible' },
@@ -173,6 +183,14 @@ const FloatingIcon = sequelize.define('FloatingIcon', {
   sortOrder: { type: DataTypes.INTEGER, defaultValue: 0, field: 'sort_order' },
   isActive: { type: DataTypes.BOOLEAN, defaultValue: true, field: 'is_active' },
 }, { tableName: 'floating_icons' });
+
+const EmailSetting = sequelize.define('EmailSetting', {
+  enquiryEmail: { type: DataTypes.STRING(150), field: 'enquiry_email' }, // receives an alert for every new enquiry
+  smtpHost: { type: DataTypes.STRING(150), defaultValue: 'smtp.gmail.com', field: 'smtp_host' },
+  smtpPort: { type: DataTypes.INTEGER, defaultValue: 587, field: 'smtp_port' },
+  smtpUser: { type: DataTypes.STRING(150), field: 'smtp_user' }, // the Gmail address the mails are sent from
+  smtpPass: { type: DataTypes.TEXT, field: 'smtp_pass' }, // Gmail app password, stored encrypted
+}, { tableName: 'email_settings' });
 
 const SeoSetting = sequelize.define('SeoSetting', {
   metaTitle: { type: DataTypes.STRING(255), field: 'meta_title' },
@@ -239,4 +257,4 @@ Enquiry.belongsTo(Service, { foreignKey: 'serviceId' });
 
 module.exports = { sequelize, Admin, SiteSetting, HeroSection, AboutSection, ServicesSection,
   PhysiotherapySection, PhysiotherapyTreatment, WhyChooseSection, ProfessionalCareSection, PromisesSection,
-  HowItWorksSection, GoogleSection, ContactSection, FooterSection, FloatingIcon, SeoSetting, MenuItem, Service, Testimonial, Enquiry, UploadedFile };
+  HowItWorksSection, FaqSection, GoogleSection, ContactSection, FooterSection, FloatingIcon, EmailSetting, SeoSetting, MenuItem, Service, Testimonial, Enquiry, UploadedFile };

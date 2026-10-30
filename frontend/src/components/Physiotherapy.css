@@ -11,6 +11,7 @@
 
 .physio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
 .physio-card { position: relative; width: 100%; aspect-ratio: 2.4 / 1; min-height: 190px; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 26px rgba(27, 41, 66, .14); }
+.physio-photo { position: absolute; inset: 0; overflow: hidden; }
 .physio-card img { width: 100%; height: 100%; object-fit: cover; }
 .physio-fallback {
   height: 100%; display: flex; align-items: center; justify-content: center; color: var(--pink);
@@ -23,6 +24,20 @@
   padding: 8px 22px 8px 8px; border-radius: 999px; color: var(--white);
   font: 600 clamp(15px, 1.5vw, 19px) var(--font-heading); line-height: 1.2; box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
 }
+.physio-sub { max-width: 680px; margin: 14px auto 0; font: 500 17px/1.6 var(--font-text); color: var(--navy); }
+.physio-label { z-index: 2; }
+.physio-card .card-info { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 12px; background: rgba(255, 255, 255, 0); transition: background .3s ease; }
+.physio-card .card-info .physio-label { position: relative; left: auto; bottom: auto; max-width: 100%; width: fit-content; }
+/* the white panel with the description grows up from the bottom on hover, focus or tap; the text is always in the page for search engines */
+.card-more {
+  max-height: 0; margin: 0; padding: 0 6px; overflow: hidden; opacity: 0; color: var(--navy); font: 500 14.5px/1.6 var(--font-text);
+  transition: max-height .4s ease, opacity .3s ease, margin .3s ease;
+}
+.physio-card.has-reveal:hover .card-info, .physio-card.has-reveal:focus .card-info, .physio-card.has-reveal:focus-within .card-info { background: var(--white); }
+.physio-card.has-reveal:hover .card-more, .physio-card.has-reveal:focus .card-more, .physio-card.has-reveal:focus-within .card-more {
+  max-height: 200px; opacity: 1; margin: 12px 0 4px;
+}
+.physio-card.has-reveal:focus { outline: none; }
 .physio-label.tone-navy { background: linear-gradient(90deg, #1b2942, #26385a); }
 .physio-label.tone-pink { background: linear-gradient(90deg, #ff1493, #fa0073); }
 .physio-icon {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { api } from '../api/client';
 import { groups } from '../nav';
 import './Dashboard.css';
@@ -12,6 +12,7 @@ const tiles = [
 
 export default function Dashboard() {
   const [stats, setStats] = useState(null);
+  const { name } = useOutletContext();
 
   useEffect(() => {
     api.get('/admin/stats').then(setStats).catch(() => {});
@@ -20,6 +21,10 @@ export default function Dashboard() {
   return (
     <>
       <div className="page-head"><h1>Dashboard</h1></div>
+      <section className="welcome">
+        <h2>Hello, {name || 'Administrator'} <span aria-hidden="true">👋</span></h2>
+        <p>Manage every section of your website from here. Pick a menu on the left to start editing.</p>
+      </section>
       <div className="stat-grid">
         {tiles.map((t) => (
           <div className="card stat" key={t.key}>

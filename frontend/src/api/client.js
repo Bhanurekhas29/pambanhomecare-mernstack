@@ -35,6 +35,7 @@ export async function loadSite() {
     professionalCare: '/professional-care',
     promises: '/promises',
     howItWorks: '/how-it-works',
+    faq: '/faq',
     google: '/google-business',
     contact: '/contact-us',
     footer: '/footer',

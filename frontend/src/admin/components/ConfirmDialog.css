@@ -1,0 +1,16 @@
+.confirm-backdrop {
+  position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center;
+  padding: 20px; background: rgba(15, 23, 42, .55);
+}
+.confirm-box {
+  width: 100%; max-width: 380px; padding: 28px 26px 24px; border-radius: 14px; text-align: center;
+  background: var(--white); box-shadow: 0 24px 60px rgba(0, 0, 0, .3);
+}
+.confirm-icon {
+  display: inline-flex; align-items: center; justify-content: center; width: 54px; height: 54px; border-radius: 50%;
+  background: #ffe5f1; color: var(--pink); font-size: 28px;
+}
+.confirm-box h2 { margin: 14px 0 6px; font-size: 20px; }
+.confirm-box p { margin: 0 0 22px; font-size: 14.5px; }
+.confirm-actions { display: flex; gap: 10px; }
+.confirm-actions .btn { flex: 1; }

@@ -26,7 +26,7 @@ export const resources = {
       { name: 'email', label: 'Email', type: 'email', hint: 'Used for password reset links' },
       {
         name: 'password', label: 'Password', type: 'password', secret: true, requiredOnCreate: true,
-        hint: 'At least 8 characters. When editing, leave blank to keep the current password.',
+        hint: 'At least 8 characters with an uppercase letter, a lowercase letter, a number and a special character. When editing, leave blank to keep the current password.',
       },
       { name: 'isActive', label: 'Active', type: 'checkbox', default: true },
     ],
@@ -52,8 +52,8 @@ export const resources = {
         hint: 'Wide cards show a paragraph of text beside the photo, like "Medicine Assistance".',
       },
       {
-        name: 'description', label: 'Description', type: 'textarea', required: true,
-        showIf: (values) => values.isWide,
+        name: 'description', label: 'Description', type: 'textarea',
+        hint: 'A short line about this service. Visitors see it when they hover over or tap the card; a wide card always shows it.',
       },
       { name: 'isActive', label: 'Show on website', type: 'checkbox', default: true },
     ],
@@ -71,6 +71,10 @@ export const resources = {
     ],
     fields: [
       { name: 'title', label: 'Treatment name', type: 'text', required: true },
+      {
+        name: 'description', label: 'Description', type: 'textarea',
+        hint: 'A short line about this treatment. Visitors see it when they hover over or tap the card.',
+      },
       { name: 'icon', label: 'Icon', type: 'icon' },
       { name: 'imageUrl', label: 'Photo', type: 'image', hint: 'Landscape photo works best. Shown behind the treatment name.' },
       { name: 'isActive', label: 'Show on website', type: 'checkbox', default: true },

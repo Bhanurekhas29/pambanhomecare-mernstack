@@ -6,7 +6,9 @@
   width: 100%; max-width: 420px; background: var(--white); border-radius: 14px;
   padding: 36px 32px; box-shadow: 0 20px 50px rgba(0, 0, 0, .25);
 }
-.auth-brand { display: flex; flex-direction: column; margin-bottom: 22px; }
+.auth-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+.auth-logo { height: 48px; width: auto; border-radius: 8px; }
+.auth-brand-text { display: flex; flex-direction: column; }
 .auth-brand-name { font: 700 26px var(--font-heading); color: var(--pink); line-height: 1.1; }
 .auth-brand-tag { font: 600 12px var(--font-heading); letter-spacing: 3px; color: var(--pink); }
 .auth-card h1 { font-size: 24px; margin-bottom: 6px; }

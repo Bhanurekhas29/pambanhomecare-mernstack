@@ -4,6 +4,8 @@ export const groups = [
     heading: 'Authentication and Authorization',
     items: [
       { to: '/users', label: 'Users', icon: 'group' },
+      { to: '/site-settings', label: 'Site Settings', icon: 'settings' },
+      { to: '/email-settings', label: 'Email Settings', icon: 'mail' },
       { to: '/credits', label: 'Credits', icon: 'workspace_premium' },
       { to: '/seo', label: 'SEO', icon: 'search' },
     ],
@@ -12,7 +14,6 @@ export const groups = [
     heading: 'Website',
     items: [
       { to: '/enquiries', label: 'Enquiries Received', icon: 'inbox' },
-      { to: '/site-settings', label: 'Site Settings', icon: 'settings' },
       { to: '/menu', label: 'Menu', icon: 'menu_open' },
       { to: '/hero', label: 'Hero Section', icon: 'web_asset' },
       { to: '/about', label: 'About Us', icon: 'info' },
@@ -22,6 +23,7 @@ export const groups = [
       { to: '/professional-care', label: 'Professional Care', icon: 'health_and_safety' },
       { to: '/promises', label: 'Our Promises', icon: 'handshake' },
       { to: '/how-it-works', label: 'How It Works', icon: 'route' },
+      { to: '/faq', label: 'FAQ', icon: 'quiz' },
       { to: '/find-us-on-google', label: 'Find Us on Google', icon: 'location_on' },
       { to: '/contact-us', label: 'Contact Us', icon: 'contact_support' },
       { to: '/footer', label: 'Footer', icon: 'bottom_navigation' },

@@ -76,6 +76,7 @@ export default function PhysiotherapySection() {
             label="Words shown in pink" name="highlightText" {...shared}
             hint="Optional. Type part of the heading exactly as written, e.g. Your Home."
           />
+          <Text label="Short description" name="description" rows={2} {...shared} hint="Optional. Shown under the heading." />
           <div className="field">
             <label>Preview</label>
             <div className="heading-preview">

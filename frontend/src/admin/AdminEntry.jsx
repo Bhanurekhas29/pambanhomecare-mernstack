@@ -5,7 +5,7 @@ import './styles/variables.css';
 import './styles/global.css';
 
 // the admin is not meant for search engines
-document.title = 'Pamban Swami Admin';
+document.title = 'Pamban Swami Home Care | Admin';
 const robots = document.createElement('meta');
 robots.name = 'robots';
 robots.content = 'noindex, nofollow';

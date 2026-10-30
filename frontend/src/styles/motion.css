@@ -37,8 +37,8 @@
 /* ---------- 3. on hover ---------- */
 @media (hover: hover) {
   /* photos grow inside their frame (Services and Physiotherapy cards) */
-  .service-photo img, .physio-card > img { transition: transform .9s cubic-bezier(.22, .61, .36, 1); will-change: transform; }
-  .service-card:hover .service-photo img, .physio-card:hover > img { transform: scale(1.1); }
+  .service-photo img, .physio-card .physio-photo img { transition: transform .9s cubic-bezier(.22, .61, .36, 1); will-change: transform; }
+  .service-card:hover .service-photo img, .physio-card:hover .physio-photo img { transform: scale(1.1); }
   .service-fallback .material-symbols-outlined, .physio-fallback .material-symbols-outlined { transition: transform .9s cubic-bezier(.22, .61, .36, 1); }
   .service-card:hover .service-fallback .material-symbols-outlined, .physio-card:hover .physio-fallback .material-symbols-outlined { transform: scale(1.18); }
   .service-label, .physio-label { transition: transform .5s cubic-bezier(.22, .61, .36, 1), box-shadow .5s ease; }

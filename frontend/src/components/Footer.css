@@ -25,10 +25,10 @@
 
 /* the copyright line, with the credit line directly underneath it */
 .footer-bottom { padding-top: 18px; padding-bottom: 20px; border-top: 1px solid rgba(255, 255, 255, .12); text-align: center; display: flex; flex-direction: column; }
-.footer-bottom p { font-size: 13.5px; color: rgba(255, 255, 255, .55); }
-.footer-bottom .copyright { padding-bottom: 16px; }
+.footer-bottom p { font-size: 15.5px; color: rgba(255, 255, 255, .55); }
+.footer-bottom .copyright { padding-bottom: 16px; text-align: center; color: #fff; }
 /* a line above the credit makes it a separate strip under the copyright line */
-.footer-bottom .credit { font-size: 13px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .12); }
+.footer-bottom .credit { font-size: 14.5px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .12); }
 .credit a { color: rgba(255, 255, 255, .8); text-decoration: underline; text-underline-offset: 3px; }
 .credit a:hover { color: var(--pink); }
 

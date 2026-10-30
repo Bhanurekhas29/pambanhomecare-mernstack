@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 const { Admin } = require('../models');
 const sendMail = require('../utils/mailer');
 
-const MIN_PASSWORD = 8;
+const { passwordProblem } = require('../utils/password');
+
 const sha256 = (value) => crypto.createHash('sha256').update(value).digest('hex');
 
 exports.login = async (req, res) => {
@@ -30,8 +31,8 @@ exports.me = async (req, res) => {
 
 exports.changePassword = async (req, res) => {
   const { currentPassword, newPassword } = req.body;
-  if (!newPassword || newPassword.length < MIN_PASSWORD) {
-    return res.status(400).json({ message: `New password must be at least ${MIN_PASSWORD} characters` });
+  if (passwordProblem(newPassword)) {
+    return res.status(400).json({ message: passwordProblem(newPassword) });
   }
   const admin = await Admin.scope('withSecrets').findByPk(req.admin.id);
   if (!(await bcrypt.compare(currentPassword || '', admin.passwordHash))) {
@@ -45,28 +46,27 @@ exports.forgotPassword = async (req, res) => {
   const email = (req.body.email || '').trim();
   const admin = email && (await Admin.findOne({ where: { email, isActive: true } }));
 
-  if (admin) {
-    const token = crypto.randomBytes(32).toString('hex');
-    await admin.update({
-      resetTokenHash: sha256(token),
-      resetTokenExpires: new Date(Date.now() + 30 * 60 * 1000),
-    });
-    const link = `${process.env.ADMIN_URL || 'http://localhost:5173/admin'}/reset-password?token=${token}`;
-    await sendMail({
-      to: admin.email,
-      subject: 'Reset your admin password',
-      text: `Use this link to reset your password (valid for 30 minutes):\n${link}\n\nIf you did not request this, ignore this email.`,
-    });
-  }
-  // same answer whether or not the email exists, so accounts cannot be probed
-  res.json({ message: 'If that email is registered, a reset link has been sent.' });
+  if (!admin) return res.status(404).json({ message: 'This email is not registered. Please enter the email of your admin account.' });
+
+  const token = crypto.randomBytes(32).toString('hex');
+  await admin.update({
+    resetTokenHash: sha256(token),
+    resetTokenExpires: new Date(Date.now() + 30 * 60 * 1000),
+  });
+  const link = `${process.env.ADMIN_URL || 'http://localhost:5173/admin'}/reset-password?token=${token}`;
+  await sendMail({
+    to: admin.email,
+    subject: 'Reset your admin password',
+    text: `Use this link to reset your password (valid for 30 minutes):\n${link}\n\nIf you did not request this, ignore this email.`,
+  });
+  res.json({ message: 'A reset link has been sent to your email.' });
 };
 
 exports.resetPassword = async (req, res) => {
   const { token, password } = req.body;
   if (!token) return res.status(400).json({ message: 'Reset token is missing' });
-  if (!password || password.length < MIN_PASSWORD) {
-    return res.status(400).json({ message: `Password must be at least ${MIN_PASSWORD} characters` });
+  if (passwordProblem(password)) {
+    return res.status(400).json({ message: passwordProblem(password) });
   }
   const admin = await Admin.findOne({
     where: { resetTokenHash: sha256(token), resetTokenExpires: { [Op.gt]: new Date() } },

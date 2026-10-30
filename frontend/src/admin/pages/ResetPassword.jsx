@@ -38,7 +38,7 @@ export default function ResetPassword() {
             <label htmlFor="password">New password</label>
             <input id="password" type="password" minLength={8} required value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })} />
-            <span className="hint">At least 8 characters</span>
+            <span className="hint">At least 8 characters with an uppercase letter, a lowercase letter, a number and a special character (such as @ # $ !)</span>
           </div>
           <div className="field">
             <label htmlFor="confirm">Confirm password</label>

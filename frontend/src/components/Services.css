@@ -14,7 +14,7 @@
   box-shadow: 0 12px 30px rgba(27, 41, 66, .12); min-height: 240px; aspect-ratio: 1.35 / 1; transition: transform .2s, box-shadow .2s;
 }
 .service-card:hover { transform: translateY(-4px); box-shadow: 0 18px 38px rgba(27, 41, 66, .18); }
-.service-photo { position: absolute; inset: 0; }
+.service-photo { position: absolute; inset: 0; overflow: hidden; }
 .service-photo img { width: 100%; height: 100%; object-fit: cover; }
 .service-fallback {
   height: 100%; display: flex; align-items: center; justify-content: center; color: var(--pink);
@@ -27,6 +27,7 @@
   padding: 9px 20px 9px 9px; border-radius: 999px; color: var(--white);
   font: 700 clamp(17px, 1.7vw, 22px) var(--font-heading); line-height: 1.15; box-shadow: 0 10px 22px rgba(0, 0, 0, .25);
 }
+.service-label { z-index: 2; }
 .service-label.tone-navy { background: linear-gradient(90deg, #0e2a5e, #14336f); }
 .service-label.tone-pink { background: linear-gradient(90deg, #ff1493, #fa0073); }
 .label-icon {
@@ -36,12 +37,27 @@
 .label-icon .material-symbols-outlined { font-size: 20px; }
 
 .service-card.is-wide { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; background: var(--white); aspect-ratio: auto; }
+.service-card.is-wide:hover { transform: none; box-shadow: 0 12px 30px rgba(27, 41, 66, .12); } /* nothing to reveal here, so no lift */
 .service-card.is-wide .service-photo { position: relative; inset: auto; }
 .service-card.is-wide .service-photo::after {
   content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255, 255, 255, 0) 55%, var(--white) 100%);
 }
-.service-desc { align-self: center; padding: 24px 28px 24px 8px; color: var(--navy); font: 600 15.5px/1.7 var(--font-text); }
+.service-desc { align-self: center; margin: 0; padding: 24px 28px 24px 8px; color: var(--navy); font: 600 15.5px/1.7 var(--font-text); }
 .service-card.is-wide .service-label { right: auto; max-width: calc(50% - 20px); }
+
+/* ordinary cards: the name stays, and a white panel with the description grows up from the bottom on hover, focus or tap.
+   The text is always in the page, so search engines can read it. */
+.card-info { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 14px; background: rgba(255, 255, 255, 0); transition: background .3s ease; }
+.card-info .service-label { position: relative; left: auto; right: auto; bottom: auto; }
+.card-more {
+  max-height: 0; margin: 0; padding: 0 6px; overflow: hidden; opacity: 0; color: var(--navy); font: 500 14.5px/1.6 var(--font-text);
+  transition: max-height .4s ease, opacity .3s ease, margin .3s ease;
+}
+.service-card.has-reveal:hover .card-info, .service-card.has-reveal:focus .card-info, .service-card.has-reveal:focus-within .card-info { background: var(--white); }
+.service-card.has-reveal:hover .card-more, .service-card.has-reveal:focus .card-more, .service-card.has-reveal:focus-within .card-more {
+  max-height: 240px; opacity: 1; margin: 12px 0 4px;
+}
+.service-card.has-reveal:focus { outline: none; }
 
 .services-cta {
   display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; width: fit-content; max-width: 100%;

@@ -1,6 +1,7 @@
 const { Enquiry, ContactSection } = require('../models');
 const contact = require('./contactController');
 const sendMail = require('../utils/mailer');
+const buildEnquiryEmail = require('../utils/enquiryEmail');
 const { normalizeMobile, isEmail } = require('../utils/contactFormat');
 
 const GENDERS = ['Male', 'Female', 'Other'];
@@ -40,15 +41,12 @@ exports.submit = async (req, res) => {
   });
 
   // alert the team by email when an address is configured; a mail problem must never fail the form
-  if (process.env.ENQUIRY_EMAIL) {
+  const { enquiryEmail } = await sendMail.getConfig();
+  if (enquiryEmail) {
     sendMail({
-      to: process.env.ENQUIRY_EMAIL,
+      to: enquiryEmail,
       subject: `New callback request from ${enquiry.name}`,
-      text: [
-        `Name: ${enquiry.name}`, `Phone: ${enquiry.phone}`, `Email: ${enquiry.email || '-'}`, `Age: ${enquiry.age}`, `Gender: ${enquiry.gender}`,
-        `Type: ${enquiry.enquiryType === 'physiotherapy' ? 'Physiotherapy' : 'Home Care Service'}`,
-        `Service: ${enquiry.serviceName || '-'}`, `Message: ${enquiry.message || '-'}`,
-      ].join('\n'),
+      ...buildEnquiryEmail(enquiry),
     }).catch((err) => console.error('Enquiry email failed:', err.message));
   }
 

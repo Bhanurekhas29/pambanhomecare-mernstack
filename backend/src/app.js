@@ -7,6 +7,7 @@ const cors = require('cors');
 const { UploadedFile } = require('./models');
 
 const app = express();
+app.set('trust proxy', 1); // behind a host's proxy (Render, nginx) the visitor's real address is needed for the rate limit
 
 app.use(cors());
 app.use(express.json());

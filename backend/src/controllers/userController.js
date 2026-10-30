@@ -1,7 +1,8 @@
 const bcrypt = require('bcryptjs');
 const { Admin } = require('../models');
 
-const MIN_PASSWORD = 8;
+const { passwordProblem } = require('../utils/password');
+
 const clean = (v) => (typeof v === 'string' && v.trim() === '' ? null : v);
 
 exports.list = async (req, res) => {
@@ -17,9 +18,7 @@ exports.get = async (req, res) => {
 exports.create = async (req, res) => {
   const { username, email, password, isActive } = req.body;
   if (!username) return res.status(400).json({ message: 'Username is required' });
-  if (!password || password.length < MIN_PASSWORD) {
-    return res.status(400).json({ message: `Password must be at least ${MIN_PASSWORD} characters` });
-  }
+  if (passwordProblem(password)) return res.status(400).json({ message: passwordProblem(password) });
   const user = await Admin.create({
     username,
     email: clean(email),
@@ -39,9 +38,7 @@ exports.update = async (req, res) => {
   }
   const changes = { username, email: clean(email), isActive };
   if (password) {
-    if (password.length < MIN_PASSWORD) {
-      return res.status(400).json({ message: `Password must be at least ${MIN_PASSWORD} characters` });
-    }
+    if (passwordProblem(password)) return res.status(400).json({ message: passwordProblem(password) });
     changes.passwordHash = await bcrypt.hash(password, 10);
   }
   await user.update(changes);

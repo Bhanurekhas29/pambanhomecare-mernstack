@@ -1,5 +1,29 @@
 .admin-shell { display: flex; min-height: 100vh; }
-.admin-main { flex: 1; margin-left: var(--sidebar-width); padding: 32px; min-width: 0; }
+.admin-content { flex: 1; margin-left: var(--sidebar-width); min-width: 0; display: flex; flex-direction: column; }
+.admin-main { flex: 1; padding: 32px; min-width: 0; }
+
+/* top bar: page heading on the left, signed-in admin and Log out on the right */
+.topbar {
+  position: sticky; top: 0; z-index: 8; height: 78px; display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 0 32px; background: var(--white); border-bottom: 1px solid var(--line);
+}
+.topbar-title { margin: 0; font-size: 26px; color: var(--pink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.topbar-user { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.topbar-avatar {
+  display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%;
+  background: var(--pink); color: var(--white); font: 700 18px var(--font-heading);
+}
+.topbar-who { display: flex; flex-direction: column; line-height: 1.25; }
+.topbar-who strong { font: 700 15px var(--font-text); color: var(--navy); }
+.topbar-who small { font-size: 13px; color: var(--slate); }
+.topbar-logout {
+  display: inline-flex; align-items: center; gap: 8px; margin-left: 6px; padding: 9px 18px; border: 1px solid var(--pink);
+  border-radius: 999px; background: var(--white); color: var(--pink); font: 600 14.5px var(--font-text); cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.topbar-logout .material-symbols-outlined { font-size: 20px; }
+.topbar-logout:hover { background: var(--pink); color: var(--white); }
+.page-head h1.in-topbar { display: none; }
 
 .page-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
 .page-head h1 { font-size: 26px; }
@@ -9,8 +33,14 @@
 
 @media (max-width: 800px) {
   .admin-shell { flex-direction: column; }
-  .admin-main { margin-left: 0; padding: 20px 16px 32px; }
+  .admin-content { margin-left: 0; }
+  .admin-main { padding: 20px 16px 32px; }
   .page-head h1 { font-size: 22px; }
+  .topbar { position: static; height: 64px; padding: 0 16px; }
+  .topbar-title { font-size: 21px; }
+  .topbar-who { display: none; }
+  .topbar-avatar { display: none; }
+  .topbar-logout { padding: 8px 14px; margin-left: 0; }
 
   .mobile-bar {
     position: sticky; top: 0; z-index: 9; height: 56px; display: flex; align-items: center; gap: 12px;

@@ -19,16 +19,25 @@ export default function Services({ section, services }) {
         <div className="services-grid">
           {services.map((s, i) => {
             const tone = i % 2 === 0 ? 'navy' : 'pink'; // navy and pink take turns, as in the design
+            const hasDesc = !isBlank(s.description);
+            const label = (
+              <h3 className={`service-label tone-${tone}`}>
+                <span className="label-icon"><Icon name={s.icon} /></span>
+                <span>{s.title}</span>
+              </h3>
+            );
             return (
-              <article key={s.id} className={`service-card ${s.isWide ? 'is-wide' : ''}`}>
+              <article
+                key={s.id}
+                className={`service-card ${s.isWide ? 'is-wide' : ''} ${!s.isWide && hasDesc ? 'has-reveal' : ''}`}
+                tabIndex={!s.isWide && hasDesc ? 0 : undefined}
+              >
                 <div className="service-photo">
                   {s.imageUrl ? <img src={assetUrl(s.imageUrl)} alt={s.title} loading="lazy" /> : <div className="service-fallback"><Icon name={s.icon} /></div>}
                 </div>
-                {s.isWide && !isBlank(s.description) && <p className="service-desc">{s.description}</p>}
-                <h3 className={`service-label tone-${tone}`}>
-                  <span className="label-icon"><Icon name={s.icon} /></span>
-                  <span>{s.title}</span>
-                </h3>
+                {s.isWide && hasDesc && <p className="service-desc">{s.description}</p>}
+                {/* ordinary cards: the white description panel grows up from the bottom on hover, keyboard focus or tap */}
+                {!s.isWide && hasDesc ? <div className="card-info">{label}<p className="card-more">{s.description}</p></div> : label}
               </article>
             );
           })}

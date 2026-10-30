@@ -41,7 +41,7 @@ export default function ChangePassword() {
           <label htmlFor="new">New password</label>
           <input id="new" type="password" required minLength={8} autoComplete="new-password" value={form.newPassword}
             onChange={(e) => set('newPassword', e.target.value)} />
-          <span className="hint">At least 8 characters</span>
+          <span className="hint">At least 8 characters with an uppercase letter, a lowercase letter, a number and a special character (such as @ # $ !)</span>
         </div>
         <div className="field">
           <label htmlFor="confirm">Confirm new password</label>

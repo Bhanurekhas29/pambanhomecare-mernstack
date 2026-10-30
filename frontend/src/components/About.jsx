@@ -23,7 +23,7 @@ export default function About({ data }) {
         <div className="about-copy">
           {!isBlank(data.eyebrow) && <p className="eyebrow">{data.eyebrow}</p>}
           <h2 className="section-title"><Lines text={data.heading} /></h2>
-          {!isBlank(data.description) && <p className="about-text">{data.description}</p>}
+          {!isBlank(data.description) && String(data.description).split(/\n\s*\n/).map((para, i) => <p key={i} className="about-text">{para}</p>)}
 
           {features.length > 0 && (
             <ul className="about-list">

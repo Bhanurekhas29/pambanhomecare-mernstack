@@ -15,9 +15,11 @@ import ProfessionalCare from './pages/ProfessionalCare.jsx';
 import GoogleBusiness from './pages/GoogleBusiness.jsx';
 import ContactUs from './pages/ContactUs.jsx';
 import Footer from './pages/Footer.jsx';
+import FaqSection from './pages/FaqSection.jsx';
 import Seo from './pages/Seo.jsx';
 import Credits from './pages/Credits.jsx';
 import SiteSettings from './pages/SiteSettings.jsx';
+import EmailSettings from './pages/EmailSettings.jsx';
 import ResourceList from './components/ResourceList.jsx';
 import ResourceForm from './components/ResourceForm.jsx';
 import { resources } from './resources.js';
@@ -36,6 +38,7 @@ export default function AdminApp() {
       <Route element={<RequireAuth><AdminLayout /></RequireAuth>}>
         <Route index element={<Dashboard />} />
         <Route path="site-settings" element={<SiteSettings />} />
+        <Route path="email-settings" element={<EmailSettings />} />
         <Route path="hero" element={<HeroSection />} />
         <Route path="about" element={<AboutSection />} />
         <Route path="services-section" element={<ServicesSection />} />
@@ -55,6 +58,7 @@ export default function AdminApp() {
             />
           }
         />
+        <Route path="faq" element={<FaqSection />} />
         <Route path="find-us-on-google" element={<GoogleBusiness />} />
         <Route path="contact-us" element={<ContactUs />} />
         <Route path="footer" element={<Footer />} />

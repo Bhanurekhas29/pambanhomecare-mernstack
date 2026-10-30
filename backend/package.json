@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "seed": "node src/seed.js"
+    "seed": "node src/seed.js",
+    "seed:seo": "node src/seedSeoContent.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
@@ -14,6 +15,7 @@
     "dotenv": "^18.0.9",
     "express": "^4.22.3",
     "express-async-errors": "^3.1.1",
+    "express-rate-limit": "^8.7.2",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.5.0",
     "mysql2": "^3.24.6",

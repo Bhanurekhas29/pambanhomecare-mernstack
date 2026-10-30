@@ -9,6 +9,7 @@ import WhyChooseUs from './components/WhyChooseUs.jsx';
 import ProfessionalCare from './components/ProfessionalCare.jsx';
 import Promises from './components/Promises.jsx';
 import HowItWorks from './components/HowItWorks.jsx';
+import Faq from './components/Faq.jsx';
 import GoogleBusiness from './components/GoogleBusiness.jsx';
 import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
@@ -72,6 +73,7 @@ export default function App() {
         <ProfessionalCare data={site.professionalCare} />
         <Promises data={site.promises} />
         <HowItWorks data={site.howItWorks} />
+        <Faq data={site.faq} />
         <GoogleBusiness data={site.google} />
         <Contact data={site.contact} services={site.services} treatments={site.physio} />
       </main>

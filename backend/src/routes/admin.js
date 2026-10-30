@@ -1,12 +1,14 @@
 const path = require('path');
 const crypto = require('crypto');
 const router = require('express').Router();
+const rateLimit = require('express-rate-limit');
 const auth = require('../middleware/auth');
 const upload = require('../middleware/upload');
 const crud = require('../controllers/crud');
 const authCtrl = require('../controllers/authController');
 const users = require('../controllers/userController');
 const settings = require('../controllers/settingsController');
+const emailSettings = require('../controllers/emailSettingsController');
 const hero = require('../controllers/heroController');
 const about = require('../controllers/aboutController');
 const services = require('../controllers/servicesController');
@@ -15,6 +17,7 @@ const whyChoose = require('../controllers/whyChooseController');
 const professionalCare = require('../controllers/professionalCareController');
 const promises = require('../controllers/promisesController');
 const howItWorks = require('../controllers/howItWorksController');
+const faq = require('../controllers/faqController');
 const google = require('../controllers/googleController');
 const contact = require('../controllers/contactController');
 const footer = require('../controllers/footerController');
@@ -24,7 +27,15 @@ const { MenuItem, Service, PhysiotherapyTreatment, FloatingIcon, Testimonial, En
 
 // public auth routes
 router.post('/login', authCtrl.login);
-router.post('/forgot-password', authCtrl.forgotPassword);
+// the "not registered" message tells which emails exist, so slow down guessing and inbox flooding
+const forgotLimit = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Too many reset requests. Please try again after 15 minutes.' },
+});
+router.post('/forgot-password', forgotLimit, authCtrl.forgotPassword);
 router.post('/reset-password', authCtrl.resetPassword);
 
 router.use(auth);
@@ -66,6 +77,8 @@ router.put('/promises', promises.update);
 
 router.get('/how-it-works', howItWorks.get);
 router.put('/how-it-works', howItWorks.update);
+router.get('/faq', faq.get);
+router.put('/faq', faq.update);
 
 router.get('/google-business', google.get);
 router.put('/google-business', google.update);
@@ -87,6 +100,9 @@ router.put('/about', about.update);
 
 router.get('/site-settings', settings.get);
 router.put('/site-settings', settings.update);
+router.get('/email-settings', emailSettings.get);
+router.put('/email-settings', emailSettings.update);
+router.post('/email-settings/test', emailSettings.test);
 
 // Django-admin style: one set of CRUD routes per model
 const resources = {
