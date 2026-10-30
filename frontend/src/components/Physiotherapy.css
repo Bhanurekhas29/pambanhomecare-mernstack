@@ -33,11 +33,15 @@
   max-height: 0; margin: 0; padding: 0 6px; overflow: hidden; opacity: 0; color: var(--navy); font: 500 14.5px/1.6 var(--font-text);
   transition: max-height .4s ease, opacity .3s ease, margin .3s ease;
 }
-.physio-card.has-reveal:hover .card-info, .physio-card.has-reveal:focus .card-info, .physio-card.has-reveal:focus-within .card-info { background: var(--white); }
-.physio-card.has-reveal:hover .card-more, .physio-card.has-reveal:focus .card-more, .physio-card.has-reveal:focus-within .card-more {
-  max-height: 200px; opacity: 1; margin: 12px 0 4px;
+/* laptops and tablets: the panel opens on hover or focus; phones use the "i" button (styles in Services.css) */
+@media (min-width: 641px) {
+  .physio-card.has-reveal:hover .card-info, .physio-card.has-reveal:focus .card-info, .physio-card.has-reveal:focus-within .card-info { background: var(--white); }
+  .physio-card.has-reveal:hover .card-more, .physio-card.has-reveal:focus .card-more, .physio-card.has-reveal:focus-within .card-more {
+    max-height: 200px; opacity: 1; margin: 12px 0 4px;
+  }
+  .physio-card.has-reveal:focus { outline: none; }
 }
-.physio-card.has-reveal:focus { outline: none; }
+@media (max-width: 640px) { .physio-card.has-reveal { aspect-ratio: auto; min-height: 270px; } } /* room for the opened description */
 .physio-label.tone-navy { background: linear-gradient(90deg, #1b2942, #26385a); }
 .physio-label.tone-pink { background: linear-gradient(90deg, #ff1493, #fa0073); }
 .physio-icon {

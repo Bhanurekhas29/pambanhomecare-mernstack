@@ -53,11 +53,25 @@
   max-height: 0; margin: 0; padding: 0 6px; overflow: hidden; opacity: 0; color: var(--navy); font: 500 14.5px/1.6 var(--font-text);
   transition: max-height .4s ease, opacity .3s ease, margin .3s ease;
 }
-.service-card.has-reveal:hover .card-info, .service-card.has-reveal:focus .card-info, .service-card.has-reveal:focus-within .card-info { background: var(--white); }
-.service-card.has-reveal:hover .card-more, .service-card.has-reveal:focus .card-more, .service-card.has-reveal:focus-within .card-more {
-  max-height: 240px; opacity: 1; margin: 12px 0 4px;
+/* laptops and tablets: the panel opens on hover or focus */
+@media (min-width: 641px) {
+  .service-card.has-reveal:hover .card-info, .service-card.has-reveal:focus .card-info, .service-card.has-reveal:focus-within .card-info { background: var(--white); }
+  .service-card.has-reveal:hover .card-more, .service-card.has-reveal:focus .card-more, .service-card.has-reveal:focus-within .card-more {
+    max-height: 240px; opacity: 1; margin: 12px 0 4px;
+  }
+  .service-card.has-reveal:focus { outline: none; }
 }
-.service-card.has-reveal:focus { outline: none; }
+/* phones (services and physiotherapy cards): a small "i" button in the corner opens the panel */
+.card-i { display: none; }
+@media (max-width: 640px) {
+  .card-i {
+    display: flex; position: absolute; top: 10px; right: 10px; z-index: 3; width: 36px; height: 36px; align-items: center; justify-content: center;
+    padding: 0; border: 0; border-radius: 50%; background: var(--white); color: var(--pink); box-shadow: 0 4px 12px rgba(0, 0, 0, .28); cursor: pointer;
+  }
+  .card-i .material-symbols-outlined { font-size: 22px; }
+  .service-card.open .card-info, .physio-card.open .card-info { background: var(--white); }
+  .service-card.open .card-more, .physio-card.open .card-more { max-height: 260px; opacity: 1; margin: 12px 0 4px; }
+}
 
 .services-cta {
   display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; width: fit-content; max-width: 100%;

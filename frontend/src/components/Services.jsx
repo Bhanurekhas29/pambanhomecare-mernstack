@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { Icon, Lines, assetUrl, isBlank, linkProps } from './common.jsx';
 import './Services.css';
 
 export default function Services({ section, services }) {
+  const [openId, setOpenId] = useState(null); // phones: the card whose "i" button was tapped
   if (!section.isVisible) return null;
 
   return (
@@ -20,6 +22,7 @@ export default function Services({ section, services }) {
           {services.map((s, i) => {
             const tone = i % 2 === 0 ? 'navy' : 'pink'; // navy and pink take turns, as in the design
             const hasDesc = !isBlank(s.description);
+            const open = openId === s.id;
             const label = (
               <h3 className={`service-label tone-${tone}`}>
                 <span className="label-icon"><Icon name={s.icon} /></span>
@@ -29,14 +32,24 @@ export default function Services({ section, services }) {
             return (
               <article
                 key={s.id}
-                className={`service-card ${s.isWide ? 'is-wide' : ''} ${!s.isWide && hasDesc ? 'has-reveal' : ''}`}
+                className={`service-card ${s.isWide ? 'is-wide' : ''} ${!s.isWide && hasDesc ? 'has-reveal' : ''} ${open ? 'open' : ''}`}
                 tabIndex={!s.isWide && hasDesc ? 0 : undefined}
               >
                 <div className="service-photo">
                   {s.imageUrl ? <img src={assetUrl(s.imageUrl)} alt={s.title} loading="lazy" /> : <div className="service-fallback"><Icon name={s.icon} /></div>}
                 </div>
                 {s.isWide && hasDesc && <p className="service-desc">{s.description}</p>}
-                {/* ordinary cards: the white description panel grows up from the bottom on hover, keyboard focus or tap */}
+                {/* ordinary cards: the white description panel grows up from the bottom on hover or focus (laptops and tablets);
+                    on phones the "i" button opens it */}
+                {!s.isWide && hasDesc && (
+                  <button
+                    type="button" className="card-i" aria-expanded={open}
+                    aria-label={open ? `Hide details of ${s.title}` : `Show details of ${s.title}`}
+                    onClick={() => setOpenId(open ? null : s.id)}
+                  >
+                    <Icon name={open ? 'close' : 'info'} />
+                  </button>
+                )}
                 {!s.isWide && hasDesc ? <div className="card-info">{label}<p className="card-more">{s.description}</p></div> : label}
               </article>
             );

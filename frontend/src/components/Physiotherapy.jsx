@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Icon, assetUrl, isBlank, linkProps } from './common.jsx';
 import './Physiotherapy.css';
 
@@ -9,6 +10,7 @@ function Heading({ text, highlight }) {
 }
 
 export default function Physiotherapy({ section, treatments }) {
+  const [openId, setOpenId] = useState(null); // phones: the card whose "i" button was tapped
   if (!section.isVisible) return null;
 
   return (
@@ -25,6 +27,7 @@ export default function Physiotherapy({ section, treatments }) {
             // two columns: the colours swap every row (navy/pink, pink/navy, ...)
             const tone = (Math.floor(i / 2) + (i % 2)) % 2 === 0 ? 'navy' : 'pink';
             const hasDesc = !isBlank(t.description);
+            const open = openId === t.id;
             const label = (
               <h3 className={`physio-label tone-${tone}`}>
                 <span className="physio-icon"><Icon name={t.icon} /></span>
@@ -32,11 +35,21 @@ export default function Physiotherapy({ section, treatments }) {
               </h3>
             );
             return (
-              <article key={t.id} className={`physio-card ${hasDesc ? 'has-reveal' : ''}`} tabIndex={hasDesc ? 0 : undefined}>
+              <article key={t.id} className={`physio-card ${hasDesc ? 'has-reveal' : ''} ${open ? 'open' : ''}`} tabIndex={hasDesc ? 0 : undefined}>
                 <div className="physio-photo">
                   {t.imageUrl ? <img src={assetUrl(t.imageUrl)} alt={t.title} loading="lazy" /> : <div className="physio-fallback"><Icon name={t.icon} /></div>}
                 </div>
-                {/* the white description panel grows up from the bottom on hover, keyboard focus or tap */}
+                {/* the white description panel grows up from the bottom on hover or focus (laptops and tablets);
+                    on phones the "i" button opens it */}
+                {hasDesc && (
+                  <button
+                    type="button" className="card-i" aria-expanded={open}
+                    aria-label={open ? `Hide details of ${t.title}` : `Show details of ${t.title}`}
+                    onClick={() => setOpenId(open ? null : t.id)}
+                  >
+                    <Icon name={open ? 'close' : 'info'} />
+                  </button>
+                )}
                 {hasDesc ? <div className="card-info">{label}<p className="card-more">{t.description}</p></div> : label}
               </article>
             );
