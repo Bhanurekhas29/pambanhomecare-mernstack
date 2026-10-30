@@ -11,7 +11,7 @@
 .hero-inner { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 400px); align-items: center; gap: 48px; }
 
 .hero-eyebrow { font-size: 14px; letter-spacing: 1.6px; margin-bottom: 14px; }
-.hero h1 { color: var(--white); font-size: clamp(38px, 5.4vw, 66px); font-weight: 700; letter-spacing: -1.5px; }
+.hero h1 { color: var(--white); font-size: clamp(30px, 4.2vw, 52px); font-weight: 700; letter-spacing: -1.5px; }
 .hero-text { margin-top: 22px; max-width: 520px; font-size: 18px; line-height: 1.65; color: rgba(255, 255, 255, .88); }
 .hero-buttons { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
 /* the three points sit side by side on one straight line (stacked in a straight column on phones) */
