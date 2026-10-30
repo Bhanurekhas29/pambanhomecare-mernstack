@@ -35,6 +35,13 @@
 @media (max-width: 1060px) { .footer-grid { grid-template-columns: repeat(3, 1fr); } .footer-brand { grid-column: 1 / -1; } .footer-brand p { max-width: 420px; } }
 @media (max-width: 640px) {
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px 20px; }
-  .footer-contact { grid-column: 1 / -1; }
+  .footer-contact { grid-column: 1 / -1; padding-bottom: 18px; } /* a little room between the address and the copyright line */
+  /* quick links and physiotherapy side by side, then the long services list across the full width in two columns */
+  .footer-grid > :nth-child(2) { order: 1; }
+  .footer-grid > :nth-child(4) { order: 2; }
+  .footer-grid > :nth-child(3) { order: 3; grid-column: 1 / -1; }
+  .footer-grid > :nth-child(3) ul { grid-template-columns: 1fr 1fr; gap: 10px 20px; }
+  .footer-grid > :nth-child(5) { order: 4; }
+  .footer-bottom .copyright { font-size: 12.5px; }
   .footer-col a, .footer-contact li { font-size: 15.5px; }
 }
