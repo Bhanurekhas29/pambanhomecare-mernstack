@@ -45,7 +45,7 @@
 .service-desc { align-self: center; margin: 0; padding: 24px 28px 24px 8px; color: var(--navy); font: 600 15.5px/1.7 var(--font-text); }
 .service-card.is-wide .service-label { right: auto; max-width: calc(50% - 20px); }
 
-/* ordinary cards: the name stays, and a white panel with the description grows up from the bottom on hover, focus or tap.
+/* ordinary cards: the name stays, and a white panel with the description grows up from the bottom when the "i" button is pressed.
    The text is always in the page, so search engines can read it. */
 .card-info { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 14px; background: rgba(255, 255, 255, 0); transition: background .3s ease; }
 .card-info .service-label { position: relative; left: auto; right: auto; bottom: auto; }
@@ -53,25 +53,16 @@
   max-height: 0; margin: 0; padding: 0 6px; overflow: hidden; opacity: 0; color: var(--navy); font: 500 14.5px/1.6 var(--font-text);
   transition: max-height .4s ease, opacity .3s ease, margin .3s ease;
 }
-/* laptops and tablets: the panel opens on hover or focus */
-@media (min-width: 641px) {
-  .service-card.has-reveal:hover .card-info, .service-card.has-reveal:focus .card-info, .service-card.has-reveal:focus-within .card-info { background: var(--white); }
-  .service-card.has-reveal:hover .card-more, .service-card.has-reveal:focus .card-more, .service-card.has-reveal:focus-within .card-more {
-    max-height: 240px; opacity: 1; margin: 12px 0 4px;
-  }
-  .service-card.has-reveal:focus { outline: none; }
+/* a small "i" button in the corner of every card (services and physiotherapy) opens or closes the panel, on every screen size */
+.card-i {
+  display: flex; position: absolute; top: 10px; right: 10px; z-index: 3; width: 36px; height: 36px; align-items: center; justify-content: center;
+  padding: 0; border: 0; border-radius: 50%; background: var(--white); color: var(--pink); box-shadow: 0 4px 12px rgba(0, 0, 0, .28); cursor: pointer;
+  transition: transform .15s ease, background .15s ease, color .15s ease;
 }
-/* phones (services and physiotherapy cards): a small "i" button in the corner opens the panel */
-.card-i { display: none; }
-@media (max-width: 640px) {
-  .card-i {
-    display: flex; position: absolute; top: 10px; right: 10px; z-index: 3; width: 36px; height: 36px; align-items: center; justify-content: center;
-    padding: 0; border: 0; border-radius: 50%; background: var(--white); color: var(--pink); box-shadow: 0 4px 12px rgba(0, 0, 0, .28); cursor: pointer;
-  }
-  .card-i .material-symbols-outlined { font-size: 22px; }
-  .service-card.open .card-info, .physio-card.open .card-info { background: var(--white); }
-  .service-card.open .card-more, .physio-card.open .card-more { max-height: 260px; opacity: 1; margin: 12px 0 4px; }
-}
+.card-i:hover { background: var(--pink); color: var(--white); transform: scale(1.08); }
+.card-i .material-symbols-outlined { font-size: 22px; }
+.service-card.open .card-info, .physio-card.open .card-info { background: var(--white); }
+.service-card.open .card-more, .physio-card.open .card-more { max-height: 260px; opacity: 1; margin: 12px 0 4px; }
 
 .services-cta {
   display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; width: fit-content; max-width: 100%;

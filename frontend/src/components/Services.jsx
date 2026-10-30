@@ -33,14 +33,12 @@ export default function Services({ section, services }) {
               <article
                 key={s.id}
                 className={`service-card ${s.isWide ? 'is-wide' : ''} ${!s.isWide && hasDesc ? 'has-reveal' : ''} ${open ? 'open' : ''}`}
-                tabIndex={!s.isWide && hasDesc ? 0 : undefined}
               >
                 <div className="service-photo">
                   {s.imageUrl ? <img src={assetUrl(s.imageUrl)} alt={s.title} loading="lazy" /> : <div className="service-fallback"><Icon name={s.icon} /></div>}
                 </div>
                 {s.isWide && hasDesc && <p className="service-desc">{s.description}</p>}
-                {/* ordinary cards: the white description panel grows up from the bottom on hover or focus (laptops and tablets);
-                    on phones the "i" button opens it */}
+                {/* ordinary cards: the white description panel grows up from the bottom when the "i" button is pressed */}
                 {!s.isWide && hasDesc && (
                   <button
                     type="button" className="card-i" aria-expanded={open}

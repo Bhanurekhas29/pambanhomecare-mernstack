@@ -35,12 +35,11 @@ export default function Physiotherapy({ section, treatments }) {
               </h3>
             );
             return (
-              <article key={t.id} className={`physio-card ${hasDesc ? 'has-reveal' : ''} ${open ? 'open' : ''}`} tabIndex={hasDesc ? 0 : undefined}>
+              <article key={t.id} className={`physio-card ${hasDesc ? 'has-reveal' : ''} ${open ? 'open' : ''}`}>
                 <div className="physio-photo">
                   {t.imageUrl ? <img src={assetUrl(t.imageUrl)} alt={t.title} loading="lazy" /> : <div className="physio-fallback"><Icon name={t.icon} /></div>}
                 </div>
-                {/* the white description panel grows up from the bottom on hover or focus (laptops and tablets);
-                    on phones the "i" button opens it */}
+                {/* the white description panel grows up from the bottom when the "i" button is pressed */}
                 {hasDesc && (
                   <button
                     type="button" className="card-i" aria-expanded={open}
