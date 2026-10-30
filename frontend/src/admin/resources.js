@@ -85,6 +85,7 @@ export const resources = {
     title: 'Enquiries Received',
     singular: 'Enquiry',
     editTitle: 'Enquiry details',
+    editLabel: 'Edit the status', // only the status can be changed
     noAdd: true, // enquiries come from the website form
     emptyText: 'No enquiries yet. They appear here when someone sends the Contact Us form.',
     columns: [

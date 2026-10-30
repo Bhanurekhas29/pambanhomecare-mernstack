@@ -121,7 +121,7 @@ export default function ResourceList({ config, path }) {
                   </td>
                 ))}
                 <td className="actions-col">
-                  <Link to={`/${path}/${row.id}`} className="btn btn-outline btn-sm">Edit</Link>
+                  <Link to={`/${path}/${row.id}`} className="btn btn-outline btn-sm">{config.editLabel || 'Edit'}</Link>
                   <button type="button" className="btn btn-danger btn-sm" onClick={() => remove(row)}>Delete</button>
                 </td>
               </tr>
